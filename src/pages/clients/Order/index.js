@@ -1,4 +1,4 @@
-import { Button, Card, message, Select, Table, Tag } from "antd";
+import { Button, Card, message, Table, Tag } from "antd";
 import { useState } from "react";
 import { historyOrderGet } from "../../../services/client/checkoutServies";
 import { getCookie } from "../../../helpers/cookie";
@@ -27,7 +27,7 @@ const columns = [
     render: (text) => <b>{text}</b>
   },
   {
-    title: 'Phương thức thanh toán',
+    title: 'PT Thanh toán',
     dataIndex: 'paymentMethod',
     key: 'paymentMethod',
   },
@@ -58,6 +58,11 @@ const columns = [
               Hoàn thành
             </Tag>
           )}
+          {record.status === "cancelled" && (
+            <Tag color={"error"} key={`success-${record.code}`} style={{ cursor: "pointer" }} >
+              Đã hủy
+            </Tag>
+          )}
         </>
       )
     }
@@ -66,9 +71,16 @@ const columns = [
     title: 'Tổng tiền',
     dataIndex: 'totalMoney',
     key: 'totalMoney',
+    render: (_, record) => {
+        return (
+          <>
+            {`${Number(record.totalMoney || 0).toLocaleString()} VNĐ`}
+          </>
+        )
+      }
   },
   {
-    title: 'Số lượng SP',
+    title: 'Số lượng',
     dataIndex: 'quantityOrder',
     key: 'quantityOrder',
   },
@@ -85,7 +97,7 @@ const columns = [
     render: (_, record) => {
       return (
         <>
-          {!record.paymentMethod?.trim() && (
+          {!record.paymentMethod?.trim() && record.status !== "cancelled" && (
             <div key={`action-${record._id}`}>
               <Button
                 type="primary"
@@ -144,10 +156,7 @@ function Order() {
   useEffect(() => {
     fetchApi();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  console.log("orders", orders);
-
+  }, []);
 
   return (
     <>

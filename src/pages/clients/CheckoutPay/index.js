@@ -15,7 +15,7 @@ function CheckoutPay() {
   const [searchParams, setSearchParams] = useSearchParams();
   const code = searchParams.get("code") || "";
 
-  const [order, setOrder] = useState();
+  const [order, setOrder] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState("cod");
 
   useEffect(() => {
@@ -24,18 +24,17 @@ function CheckoutPay() {
         const response = await detailOrderGet(code);
         if (response.code === 200) {
           setOrder(response.recordsOrder);
+        } else if (response.code === 404) {
+          message.error(response.message || 'Đơn hàng không tồn tại!');
         }
       } catch (error) {
-
+        message.error('Lỗi khi tải dữ liệu đơn hàng!');
       }
     }
 
     fetchApi();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  console.log(order);
-  
+  }, []);
 
   // Cấu hình cột của bảng
   const columns = [
@@ -144,6 +143,8 @@ function CheckoutPay() {
 
   return (
     <>
+    {order && order.products && order.products.length > 0 ? (
+      <>
       <div className="check-out">
         <Row gutter={[16, 16]}>
           <Col span={14}>
@@ -217,6 +218,11 @@ function CheckoutPay() {
           </Col>
         </Row>
       </div>
+      </>
+    ) : (
+      <p>Đơn hàng không tồn tại</p>
+    )}
+      
     </>
   );
 }
