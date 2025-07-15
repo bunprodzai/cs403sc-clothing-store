@@ -165,7 +165,7 @@ function DetailProduct() {
               Giá:{Number(product.newPrice).toLocaleString()} VNĐ
             </Text>
             <br />
-            <Text>Giá gốc: <strike>{product.price.toLocaleString()} VNĐ</strike></Text>
+            <Text>Giá gốc: <strike>{Number(product.price).toLocaleString()} VNĐ</strike></Text>
           </div>
 
           {/* Chức năng */}
