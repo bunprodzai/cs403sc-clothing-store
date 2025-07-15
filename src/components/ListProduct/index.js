@@ -29,7 +29,7 @@ function ListProduct(props) {
                     style={{ width: 250 }}
                     onChange={(value) => handleChange(value, 'priceRange')}
                   >
-                    <Option value="0-50000">Dưới 500.000VNĐ</Option>
+                    <Option value="0-500000">Dưới 500.000VNĐ</Option>
                     <Option value="500000-1000000">500.000VNĐ - 1.000.000VNĐ</Option>
                     <Option value="1000000-">Trên 1.000.000VNĐ</Option>
                     <Option value="0-0">Mặc định</Option>

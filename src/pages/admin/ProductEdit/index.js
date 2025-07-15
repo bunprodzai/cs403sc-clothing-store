@@ -139,17 +139,17 @@ function ProductEdit(props) {
               }}>
               <Row gutter={[16,16]}>
                 <Col span={24}>
-                  <Form.Item label="Tiêu đề" name="title">
+                  <Form.Item label="Tiêu đề" name="title" rules={[{ required: true, message: 'Vui lòng nhập tiêu đề!' }]}>
                     <Input />
                   </Form.Item>
                 </Col>
                 <Col span={5}>
-                  <Form.Item label="Danh mục" name="product_category_id">
+                  <Form.Item label="Danh mục" name="product_category_id" rules={[{ required: true, message: 'Vui lòng chọn danh mục!' }]}>
                     <Select options={options} />
                   </Form.Item>
                 </Col>
                 <Col span={5}>
-                  <Form.Item label="Giá" name="price">
+                  <Form.Item label="Giá" name="price" rules={[{ required: true, message: 'Vui lòng nhập giá!' }]}>
                     <Input allowClear />
                   </Form.Item>
                 </Col>
@@ -159,7 +159,7 @@ function ProductEdit(props) {
                   </Form.Item>
                 </Col>
                 <Col span={5}>
-                  <Form.Item label="Phần trăm giảm giá" name="discountPercentage">
+                  <Form.Item label="Phần trăm giảm giá" name="discountPercentage" rules={[{ required: true, message: 'Vui lòng nhập phần trăm giảm giá!' }]}>
                     <Input allowClear />
                   </Form.Item>
                 </Col>
